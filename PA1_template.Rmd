@@ -7,14 +7,25 @@ output:
 
 
 ## Loading and preprocessing the data
-
-
-
+```{r echo=TRUE}
+data <- read.csv(unz('RepData_PeerAssessment1-master/activity.zip','activity.csv'))
+```
 ## What is mean total number of steps taken per day?
-
-
-
+```{r echo=TRUE}
+# histogram
+x <- data$steps
+y <- data$date 
+aves <- aggregate(x ~ y, data= data,sum)
+hist(aves$x,main ='Histogram of the total number of steps taken each day',xlab ='total number of steps ')
+# mean and median of total number of steps taken per day
+summary(aves)
+mean(aves$x,na.rm = TRUE)
+median(aves$x,na.rm = TRUE)
+```
 ## What is the average daily activity pattern?
+```{r}
+
+```
 
 
 
