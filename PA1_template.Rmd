@@ -8,22 +8,27 @@ output:
 
 ## Loading and preprocessing the data
 ```{r echo=TRUE}
-data <- read.csv(unz('RepData_PeerAssessment1-master/activity.zip','activity.csv'))
+data <- read.csv(unz('activity.zip','activity.csv'))
+data <- na.omit(data)
+steps <- data$steps
+date <- data$date
+interval <- data$interval
 ```
 ## What is mean total number of steps taken per day?
 ```{r echo=TRUE}
 # histogram
-x <- data$steps
-y <- data$date 
-aves <- aggregate(x ~ y, data= data,sum)
-hist(aves$x,main ='Histogram of the total number of steps taken each day',xlab ='total number of steps ')
+ 
+total <- aggregate(steps ~ date, data= data,sum)
+hist(total$x,main ='Histogram of the total number of steps taken each day',xlab ='total number of steps ')
 # mean and median of total number of steps taken per day
-summary(aves)
-mean(aves$x,na.rm = TRUE)
-median(aves$x,na.rm = TRUE)
+summary(total)
+mean(total$steps,na.rm = TRUE)
+median(total$steps,na.rm = TRUE)
 ```
 ## What is the average daily activity pattern?
 ```{r}
+aves <- aggregate(data[,1],list(data$interval),mean)
+plot(aves$Group.1,aves$x,type='l',ylab="Steps", xlab='Time Interval(minutes)')
 
 ```
 
